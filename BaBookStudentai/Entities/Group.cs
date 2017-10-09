@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-namespace BaBookStudentai.Models
+namespace BaBookStudentai.Entities
 {
     public class Group
     {
