@@ -19,23 +19,12 @@ namespace BaBookStudentai.Controllers
         {
             using (var context = new BaBookDbContext())
             {
-                var model = new User { UserId = 2, Username = "TEST" };
-                var model2 = new Event
-                {
-                    Comment = "einam alaus",
-                    Date = "01.01.01 19:00",
-                    EventId = 1,
-                    Location = "bare",
-                    Title = "alus"
-                };
-                var model3 = new Group
-                {
-                    GroupId = 1,
-                    Name = "Alus"
-                };
-                context.User.Add(model);
-                context.Event.Add(model2);
-                context.Group.Add(model3);
+                context.User.Add(new User());
+                context.Event.Add(new Event());
+                context.Group.Add(new Group());
+                context.GroupEvents.Add(new GroupEvents());
+                context.EventParticipants.Add(new EventParticipants());
+                context.GroupSubscribers.Add(new GroupSubscribers());
                 context.SaveChanges();
                 return Ok();
             }

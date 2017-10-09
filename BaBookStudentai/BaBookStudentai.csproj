@@ -228,14 +228,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\EventParticipants.cs" />
     <Compile Include="Entities\Group.cs" />
-    <Compile Include="Migrations\201710090829214_dbmigr.cs" />
-    <Compile Include="Migrations\201710090829214_dbmigr.Designer.cs">
-      <DependentUpon>201710090829214_dbmigr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710090840346_database.cs" />
-    <Compile Include="Migrations\201710090840346_database.Designer.cs">
-      <DependentUpon>201710090840346_database.cs</DependentUpon>
+    <Compile Include="Entities\GroupEvents.cs" />
+    <Compile Include="Entities\GroupSubscribers.cs" />
+    <Compile Include="Migrations\201710091339427_newDatabase.cs" />
+    <Compile Include="Migrations\201710091339427_newDatabase.Designer.cs">
+      <DependentUpon>201710091339427_newDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaBookDbContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -351,11 +350,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710090829214_dbmigr.resx">
-      <DependentUpon>201710090829214_dbmigr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710090840346_database.resx">
-      <DependentUpon>201710090840346_database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710091339427_newDatabase.resx">
+      <DependentUpon>201710091339427_newDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

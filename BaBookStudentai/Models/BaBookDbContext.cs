@@ -17,6 +17,9 @@ namespace BaBookStudentai.Models
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Event> Event { get; set; }
+        public DbSet<EventParticipants> EventParticipants { get; set; }
+        public DbSet<GroupEvents> GroupEvents { get; set; }
+        public DbSet<GroupSubscribers> GroupSubscribers { get; set; }
 
 
     }
