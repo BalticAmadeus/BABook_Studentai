@@ -10,6 +10,7 @@ namespace BaBookStudentai.Entities
     {
         [Key]
         public int EventId { get; set; }
+        public int CreatorId { get; set; }
         [StringLength(50)]
         public string Title { get; set; }
         public DateTime Date { get; set; }

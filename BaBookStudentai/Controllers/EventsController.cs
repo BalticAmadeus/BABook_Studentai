@@ -11,17 +11,19 @@ using BaBookStudentai.Models;
 
 namespace BaBookStudentai.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    
     public class EventsController : Controller
     {
         private BaBookDbContext db = new BaBookDbContext();
 
         // GET: api/events
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/events")]
         public ActionResult ListAllEvents()
         {
-            return Json(db.Event.ToList(), JsonRequestBehavior.AllowGet);
+            return Content("hello");
         }
 
         // GET: api/events/{id}

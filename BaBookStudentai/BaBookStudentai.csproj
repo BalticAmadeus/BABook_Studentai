@@ -227,7 +227,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventParticipants.cs" />
     <Compile Include="Entities\Group.cs" />
@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201710100848303_seed.cs" />
     <Compile Include="Migrations\201710100848303_seed.Designer.cs">
       <DependentUpon>201710100848303_seed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710100905514_addedCreatorId.cs" />
+    <Compile Include="Migrations\201710100905514_addedCreatorId.Designer.cs">
+      <DependentUpon>201710100905514_addedCreatorId.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaBookDbContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -357,6 +361,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710100848303_seed.resx">
       <DependentUpon>201710100848303_seed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710100905514_addedCreatorId.resx">
+      <DependentUpon>201710100905514_addedCreatorId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
