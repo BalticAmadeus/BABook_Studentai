@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BaBookStudentai.Models
 {
-    public class User
+    public class UserModel
     {
         public int UserId { get; set; }
         public string UserName { get; set; }

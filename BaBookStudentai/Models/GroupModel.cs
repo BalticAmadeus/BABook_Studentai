@@ -6,20 +6,20 @@ using System.Web;
 
 namespace BaBookStudentai.Models
 {
-    public class Group
+    public class GroupModel
     {
-        public List<UserEvent> GroupEvents { get; set; } = new List<UserEvent>();
-        public List<User> GroupUsers { get; set; }
+        public List<UserEventModel> GroupEvents { get; set; } = new List<UserEventModel>();
+        public List<UserModel> GroupUsers { get; set; }
 
         public string Name { get; set; } = "Alus";
 
 
-        public void AddUser(User user)
+        public void AddUser(UserModel user)
         {
             GroupUsers.Add(user);
         }
 
-        public void AddEvent(UserEvent userEvent)
+        public void AddEvent(UserEventModel userEvent)
         {
             GroupEvents.Add(userEvent);
         }

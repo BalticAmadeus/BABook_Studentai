@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BaBookStudentai.Models
 {
-    public class UserEvent
+    public class UserEventModel
     {
       
         public string Title { get; set; }

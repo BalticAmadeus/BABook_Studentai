@@ -12,7 +12,7 @@ namespace BaBookStudentai.Controllers
 {
     public class EventController : ApiController
     {
-        private static Group alusGroup = new Group(); // laikinai
+        private static GroupModel alusGroup = new GroupModel(); // laikinai
 
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -23,7 +23,7 @@ namespace BaBookStudentai.Controllers
         // GET api/<controller>/5
         [HttpGet]
         [Route("Event/{Id}")]
-        public UserEvent Get(int id)
+        public UserEventModel Get(int id)
         {
             if (alusGroup.GroupEvents.Count > id)
                 return alusGroup.GroupEvents[id];
@@ -39,7 +39,7 @@ namespace BaBookStudentai.Controllers
         [HttpPut]
         [Route("Event")]
         // PUT api/<controller>/5
-        public void Put(UserEvent userEvent)
+        public void Put(UserEventModel userEvent)
         {
             alusGroup.AddEvent(userEvent);
         }
