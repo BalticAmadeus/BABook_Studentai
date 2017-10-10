@@ -233,9 +233,9 @@
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\GroupEvents.cs" />
     <Compile Include="Entities\GroupSubscribers.cs" />
-    <Compile Include="Migrations\201710091339427_newDatabase.cs" />
-    <Compile Include="Migrations\201710091339427_newDatabase.Designer.cs">
-      <DependentUpon>201710091339427_newDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\201710100848303_seed.cs" />
+    <Compile Include="Migrations\201710100848303_seed.Designer.cs">
+      <DependentUpon>201710100848303_seed.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaBookDbContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -339,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Configurations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -354,8 +355,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710091339427_newDatabase.resx">
-      <DependentUpon>201710091339427_newDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710100848303_seed.resx">
+      <DependentUpon>201710100848303_seed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,26 +12,7 @@ namespace BaBookStudentai.Controllers
     [Authorize]
     public class ValuesController : ApiController
     {
-
-        [Route("api/test")]
-        [AllowAnonymous]
-        public IHttpActionResult TEST()
-        {
-            using (var context = new BaBookDbContext())
-            {
-                context.User.Add(new User());
-                context.Event.Add(new Event());
-                context.Group.Add(new Group());
-                context.GroupEvents.Add(new GroupEvents());
-                context.EventParticipants.Add(new EventParticipants());
-                context.GroupSubscribers.Add(new GroupSubscribers());
-                context.SaveChanges();
-                return Ok();
-            }
-
-        }
-
-
+       
         // GET api/values
         public IEnumerable<string> Get()
         {

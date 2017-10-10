@@ -1,3 +1,5 @@
+using BaBookStudentai.Entities;
+
 namespace BaBookStudentai.Migrations
 {
     using System;
@@ -5,27 +7,23 @@ namespace BaBookStudentai.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BaBookStudentai.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BaBookStudentai.Models.BaBookDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(BaBookStudentai.Models.ApplicationDbContext context)
+        protected override void Seed(BaBookStudentai.Models.BaBookDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var group = new Group
+            {
+                GroupId = 1,
+                Name = "Alus"
+            };
+            context.Group.Add(group);
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }

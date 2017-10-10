@@ -10,9 +10,12 @@ namespace BaBookStudentai.Entities
     {
         [Key]
         public int EventId { get; set; }
+        [StringLength(50)]
         public string Title { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
+        
         public string Comment { get; set; }
+        [StringLength(100)]
         public string Location { get; set; }
 
     }

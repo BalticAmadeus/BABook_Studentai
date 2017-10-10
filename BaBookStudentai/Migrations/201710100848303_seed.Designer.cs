@@ -7,13 +7,13 @@ namespace BaBookStudentai.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class newDatabase : IMigrationMetadata
+    public sealed partial class seed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(newDatabase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(seed));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710091339427_newDatabase"; }
+            get { return "201710100848303_seed"; }
         }
         
         string IMigrationMetadata.Source
