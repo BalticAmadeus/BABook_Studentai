@@ -13,14 +13,21 @@ namespace BaBookStudentai.Models
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Event> Event { get; set; }
-        public DbSet<EventParticipants> EventParticipants { get; set; }
-        public DbSet<GroupEvents> GroupEvents { get; set; }
-        public DbSet<GroupSubscribers> GroupSubscribers { get; set; }
-
         public BaBookDbContext() : base("name=defaultConnection")
         {
          
         }
-
+        
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Event>()
+                .HasMany<User>(x => x.AttendingUsers)
+                .WithMany(x => x.UserEvents);
+            modelBuilder.Entity<Group>()
+                .HasMany<User>(x => x.GroupUsers)
+                .WithMany(x => x.UserGroups);
+            
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

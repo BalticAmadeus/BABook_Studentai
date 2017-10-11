@@ -9,13 +9,23 @@ using BaBookStudentai.Models;
 
 namespace BaBookStudentai.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ValuesController : ApiController
     {
-       
+        private BaBookDbContext db = new BaBookDbContext();
+
+
+
         // GET api/values
         public IEnumerable<string> Get()
         {
+            Group group = new Group
+            {
+                Name = "Alus"
+
+            };
+            db.Group.Add(group);
+            db.SaveChanges();
             return new string[] { "value1", "value2" };
         }
 
