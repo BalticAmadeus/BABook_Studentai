@@ -11,7 +11,8 @@ namespace BaBookStudentai.Entities
         [Key]
         public int UserId { get; set; }
         public string Username { get; set; }
-        public virtual List<Event> UserEvents { get; set; }
+        //public virtual List<Event> UserEvents { get; set; }
         public virtual List<Group> UserGroups { get; set; }
+        public virtual List<EventUser> EventUsers { get; set; }
     }
 }

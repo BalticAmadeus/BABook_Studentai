@@ -18,7 +18,8 @@ namespace BaBookStudentai.Entities
         public string Comment { get; set; }
         [StringLength(100)]
         public string Location { get; set; }
-        public virtual List<User> AttendingUsers { get; set; }
-
+        public virtual List<EventComment> EventComments { get; set; }
+        public virtual List<EventUser> EventUsers { get; set; }
+        
     }
 }
