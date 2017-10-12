@@ -193,6 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CommentsController.cs" />
     <Compile Include="API\EventsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

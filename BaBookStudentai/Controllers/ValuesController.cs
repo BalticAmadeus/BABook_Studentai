@@ -24,6 +24,26 @@ namespace BaBookStudentai.Controllers
                 Name = "Alus"
 
             };
+            EventComment eventComment = new EventComment
+            {
+                CommentId = 1,
+                UserId = 1,
+                UserComment = "test"
+
+            };
+            List<EventComment> list = new List<EventComment>();
+            list.Add(eventComment);
+            Event @event = new Event
+            {
+                Date = DateTime.Now,
+                EventComments = list,
+                EventId = 1,
+                CreatorId = 1,
+                GroupId = 1,
+
+            };
+            db.Event.Add(@event);
+            db.EventComment.Add(eventComment);
             db.Group.Add(group);
             db.SaveChanges();
             return new string[] { "value1", "value2" };

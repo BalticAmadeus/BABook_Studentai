@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Models;
@@ -47,7 +48,7 @@ namespace BaBookStudentai.API
             }
         }
 
-        // POST: api/event
+        // POST: api/events
         public IHttpActionResult Post(UserEventModel @event)
         {
             //var userId = User.Identity.GetUserId();
