@@ -10,21 +10,21 @@ using BaBookStudentai.Models;
 
 namespace BaBookStudentai.API
 {
-    public class ParticipantsController : ApiController
+    public class UserEventController : ApiController
     {
-        private readonly ParticipantsRepository participantsRepository;
+        private readonly UserEventRepository _userEventRepository;
 
-        public ParticipantsController()
+        public UserEventController()
         {
-            participantsRepository = new ParticipantsRepository();
+            _userEventRepository = new UserEventRepository();
         }
 
         // GET api/<controller>
         public IHttpActionResult Get()
         {
-            var events = participantsRepository.Get();
+            var events = _userEventRepository.Get();
 
-            var model = ParticipantsDto.Convert(events);
+            var model = UserEventDto.Convert(events);
 
             return Ok(model);
         }
@@ -32,9 +32,9 @@ namespace BaBookStudentai.API
         // GET api/<controller>/5
         public IHttpActionResult Get(int id)
         {
-            var participants = participantsRepository.Get().Where(qq => qq.EventId == id);
+            var participants = _userEventRepository.Get().Where(qq => qq.EventId == id);
 
-            var model = ParticipantsDto.Convert(participants);
+            var model = UserEventDto.Convert(participants);
 
             if (participants != null)
             {
@@ -64,7 +64,7 @@ namespace BaBookStudentai.API
         }
     }
 
-    public class ParticipantsRepository
+    public class UserEventRepository
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
 

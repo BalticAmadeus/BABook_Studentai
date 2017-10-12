@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace BaBookStudentai.DTOs
 {
-    public class ParticipantsDto
+    public class UserEventDto
     {
         public int Id { get; set; }
 
@@ -16,9 +16,9 @@ namespace BaBookStudentai.DTOs
 
         public int Status { get; set; }
 
-        internal static List<ParticipantsDto> Convert(IQueryable<EventUser> participants)
+        internal static List<UserEventDto> Convert(IQueryable<EventUser> participants)
         {
-            return participants.Select(e => new ParticipantsDto()
+            return participants.Select(e => new UserEventDto()
             {
                 Id = e.EventId,
                 UserId = e.UserId,
@@ -26,9 +26,9 @@ namespace BaBookStudentai.DTOs
             }).ToList();
         }
 
-        internal static ParticipantsDto Convert(EventUser e)
+        internal static UserEventDto Convert(EventUser e)
         {
-            return new ParticipantsDto
+            return new UserEventDto
             {
                 Id = e.EventId,
                 UserId = e.UserId,
