@@ -24,7 +24,7 @@ namespace BaBookStudentai.API
         {
             var events = participantsRepository.Get();
 
-            var model = ParticipantDto.Convert(events);
+            var model = ParticipantsDto.Convert(events);
 
             return Ok(model);
         }
@@ -34,7 +34,7 @@ namespace BaBookStudentai.API
         {
             var participants = participantsRepository.Get().Where(qq => qq.EventId == id);
 
-            var model = ParticipantDto.Convert(participants);
+            var model = ParticipantsDto.Convert(participants);
 
             if (participants != null)
             {
