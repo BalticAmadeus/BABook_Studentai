@@ -193,6 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\EventsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -227,9 +228,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="DTOs\EventDto.cs" />
     <Compile Include="Controllers\InvitationsController.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\EventComment.cs" />
+    <Compile Include="Entities\EventUser.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Models\BaBookDbContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />

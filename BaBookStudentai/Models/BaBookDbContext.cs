@@ -20,12 +20,30 @@ namespace BaBookStudentai.Models
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Event>()
+            //    .HasMany<User>(x => x.AttendingUsers)
+            //    .WithMany(x => x.UserEvents);
+            //modelBuilder.Entity<Group>()
+            //    .HasMany<User>(x => x.GroupUsers)
+            //    .WithMany(x => x.UserGroups);
+
+            modelBuilder.Entity<User>().HasKey(x => x.UserId);
+            modelBuilder.Entity<Event>().HasKey(x => x.EventId);
+            modelBuilder.Entity<EventUser>().HasKey(x =>
+                new
+                {
+                    x.UserId,
+                    x.EventId
+                });
+            //relationships
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.EventUsers)
+                .WithRequired(x => x.User)
+                .HasForeignKey(x => x.UserId);
             modelBuilder.Entity<Event>()
-                .HasMany<User>(x => x.AttendingUsers)
-                .WithMany(x => x.UserEvents);
-            modelBuilder.Entity<Group>()
-                .HasMany<User>(x => x.GroupUsers)
-                .WithMany(x => x.UserGroups);
+                .HasMany(x => x.EventUsers)
+                .WithRequired(x => x.Event)
+                .HasForeignKey(x => x.EventId);
             
             base.OnModelCreating(modelBuilder);
         }
