@@ -54,7 +54,7 @@ namespace BaBookStudentai.API
 
             var ev = new Event
             {
-                AttendingUsers = new List<Entities.User>(),
+                EventUsers = new List<EventUser>(),
                 CreatorId = 1,
                 Comment = @event.Comment,
                 Date = @event.Date,
