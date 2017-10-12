@@ -13,6 +13,8 @@ namespace BaBookStudentai.Models
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Event> Event { get; set; }
+        public DbSet<EventUser> EventUser { get; set; }
+
         public BaBookDbContext() : base("name=defaultConnection")
         {
          
