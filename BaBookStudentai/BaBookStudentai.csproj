@@ -230,6 +230,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="DTOs\EventDto.cs" />
+    <Compile Include="DTOs\EventUserDto.cs" />
     <Compile Include="DTOs\UserEventDto.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventComment.cs" />
