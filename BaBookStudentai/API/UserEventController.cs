@@ -134,7 +134,7 @@ namespace BaBookStudentai.API
         }
     }*/
 
-    public class UserEventRepository
+    //public class UserEventRepository
 
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
