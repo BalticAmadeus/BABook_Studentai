@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Models;
@@ -21,6 +20,8 @@ namespace BaBookStudentai.API
         }
 
         // GET: api/events
+        [HttpGet]
+        [Route("api/events")]
         public IHttpActionResult Get()
         {
             var events = eventsRepository.Get();
@@ -28,11 +29,12 @@ namespace BaBookStudentai.API
             var model = EventDto.Convert(events);
 
             return Ok(model);
-
         }
 
         // GET: api/events/{id}
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        [Route("api/events/{id}")]
+        public IHttpActionResult Get([FromUri] int id)
         {
             var @event = eventsRepository.Get().ToList().Find(x => x.EventId == id);
 
@@ -47,6 +49,8 @@ namespace BaBookStudentai.API
         }
 
         // POST: api/events
+        [HttpPost]
+        [Route("api/events")]
         public IHttpActionResult Post(UserEventModel @event)
         {
             //var userId = User.Identity.GetUserId();
