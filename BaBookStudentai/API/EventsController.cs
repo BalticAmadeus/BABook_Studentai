@@ -36,16 +36,14 @@ namespace BaBookStudentai.API
         {
             var @event = eventsRepository.Get().ToList().Find(x => x.EventId == id);
 
-            var model = EventDto.Convert(@event);
-
-            if (@event != null)
-            {
-                return Ok(model);
-            }
-            else
+            if (@event == null)
             {
                 return NotFound();
             }
+
+            var model = EventDto.Convert(@event);
+
+            return Ok(model);
         }
 
         // POST: api/events
