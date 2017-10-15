@@ -14,32 +14,46 @@ namespace BaBookStudentai.API
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
         //GET : api/comments/{eventId}
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        [Route("api/comments/{eventId}")]
+        public IHttpActionResult Get([FromUri]int eventId)
         {
-            var eventComments = _db.Event.Where(x => x.EventId == id).Select(x => x.EventComments);
-            return Ok(eventComments);
+            var commentators = _db.Event.SingleOrDefault(x => x.EventId == eventId)?.EventComments;
+            var comments = new List<EventCommentDto>();
+            foreach (var commentator in commentators)
+            {
+                var comment = new EventCommentDto
+                {
+                    Comment = commentator.UserComment,
+                    UserId = commentator.UserId
+
+                };
+                comments.Add(comment);
+            }
+
+            return Ok(comments);
         }
 
         //POST : api/comments/{eventId}
 
-        
+
 
         [HttpPost]
         [Route("api/comments/{eventId}")]
-        public IHttpActionResult Post([FromBody]EventComment comment, [FromUri]int eventId)
+        public IHttpActionResult Post([FromBody]EventCommentDto comment, [FromUri]int eventId)
         {
 
             //var userId = User.Identity.GetUserId();
 
             var com = new EventComment
             {
-                UserComment = comment.UserComment,
-                UserId = comment.UserId 
+                UserComment = comment.Comment,
+                UserId = comment.UserId
             };
             _db.Event.Where(x => x.EventId == eventId).ToList().Find(x => x.EventId == eventId).EventComments.Add(com);
             _db.SaveChanges();
 
-            return Ok();        
+            return Ok();
         }
 
 
