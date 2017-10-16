@@ -15,22 +15,24 @@ namespace BaBookStudentai.API
 
         private readonly BaBookDbContext _db = new BaBookDbContext();
         private readonly EventUserRepository _eventUserRepository;
+        private readonly UserRepository _userRepository;
 
         public UserEventController()
         {
             _eventUserRepository = new EventUserRepository();
+            _userRepository = new UserRepository();
         }
 
-        // POST: api/userevent/{id}/{userId}/{status}
+        // POST: api/userevent
         [HttpPost]
-        [Route("api/UserEvent/{eventId}/{userId}/{status}")]
-        public IHttpActionResult Post(int eventId, int userId, int status)
+        [Route("api/UserEvent")]
+        public IHttpActionResult Post([FromBody]EventUserDto eventUser)
         {
             var evUser = new EventUser
             {
-                EventId = eventId,
-                UserId = userId,
-                Status = (AttendanceStatus)status
+                EventId = eventUser.EventId,
+                UserId = eventUser.UserId,
+                Status = (AttendanceStatus)eventUser.Status
             };
 
             _db.EventUser.Add(evUser);
@@ -39,13 +41,13 @@ namespace BaBookStudentai.API
             return Ok();
         }
 
-        // PUT: api/userevent/{id}/{userId}/{status}
+        // PUT: api/userevent
         [HttpPut]
-        [Route("api/UserEvent/{eventId}/{userId}/{status}")]
-        public IHttpActionResult Put(int eventId, int userId, int status)
+        [Route("api/UserEvent")]
+        public IHttpActionResult Put(EventUserDto eventUser)
         {
-            _db.EventUser.Where(x => x.EventId == eventId && x.UserId == userId)
-                    .FirstOrDefault().Status = (AttendanceStatus)status;
+            _db.EventUser.Where(x => x.EventId == eventUser.EventId && x.UserId == eventUser.UserId)
+                    .FirstOrDefault().Status = (AttendanceStatus)eventUser.Status;
             _db.SaveChanges();
             return Ok();
         }
@@ -55,28 +57,19 @@ namespace BaBookStudentai.API
         [Route("api/UserEvent/{eventId}")]
         public IHttpActionResult Get(int eventId)
         {
-            var eventUsersRep = _eventUserRepository.Get();
-
-            var eventUsersQuery = 
-                from e in eventUsersRep
-                where e.EventId == eventId
-                select new EventUserDto
+            var participatingUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
+            List<EventParticipantDto> participantList = new List<EventParticipantDto>();
+            foreach (var participant in participatingUsers)
+            {
+                var eventParticipation = new EventParticipantDto
                 {
-                    EventId = e.EventId,
-                    UserId = e.UserId,
-                    Status = (int)e.Status
+                    Status = (int)participant.Status,
+                    Name = _db.User.SingleOrDefault(x => x.UserId == participant.UserId)?.Username
                 };
-
-            var eventUsers = eventUsersQuery.ToList();
-
-            if (eventUsers.Any())
-            {
-                return Ok(eventUsers);
+                participantList.Add(eventParticipation);
             }
-            else
-            {
-                return BadRequest();
-            }
+           
+            return Ok(participantList);
         }
     }
 
@@ -146,6 +139,18 @@ namespace BaBookStudentai.API
             return eventUsers;
         }
 
+    }
+
+    public class UserRepository
+    {
+        private readonly BaBookDbContext _db = new BaBookDbContext();
+
+        public IQueryable<User> Get()
+        {
+
+            var users = _db.User;
+            return users;
+        }
     }
 
 }

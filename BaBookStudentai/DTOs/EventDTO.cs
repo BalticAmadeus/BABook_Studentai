@@ -23,6 +23,7 @@ namespace BaBookStudentai.DTOs
 
         public int Status { get; set; }
 
+
         internal static List<EventDto> Convert(IQueryable<Event> events, IQueryable<Group> groups,
                                                 IQueryable<EventUser> eventUsers, IQueryable<User> users)
         {
