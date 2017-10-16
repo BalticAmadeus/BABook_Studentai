@@ -9,44 +9,41 @@ namespace BaBookStudentai.DTOs
     {
         public int Id { get; set; }
 
-        public int GroupId { get; set; }
+        public string CreatorName { get; set; }
 
-        public int UserId { get; set; }
-
-        public string Title { get; set; }
+        public string GroupName { get; set; }
 
         public DateTime Date { get; set; }
+
+        public string Title { get; set; }
 
         public string Comment { get; set; }
 
         public string Location { get; set; }
 
-        internal static List<EventDto> Convert(IQueryable<Event> events)
-        {
-            return events.Select(e=> new EventDto()
-            {
-                Id = e.EventId,
-                GroupId = e.GroupId,
-                UserId = e.CreatorId,
-                Title = e.Title,
-                Date = e.Date,
-                Comment = e.Comment,
-                Location = e.Location
-            }).ToList();
-        }
+        public int Status { get; set; }
 
-        internal static EventDto Convert(Event e)
+        internal static List<EventDto> Convert(IQueryable<Event> events, IQueryable<Group> groups,
+                                                IQueryable<EventUser> eventUsers, IQueryable<User> users)
         {
-            return new EventDto
+            var list = new List<EventDto>();
+            foreach (var @event in events)
             {
-                Id = e.EventId,
-                GroupId = e.GroupId,
-                UserId = e.CreatorId,
-                Title = e.Title,
-                Date = e.Date,
-                Comment = e.Comment,
-                Location = e.Location
-            };
+                var eventDto = new EventDto
+                {
+                    Id = @event.EventId,
+                    GroupName = groups.SingleOrDefault(x => x.GroupId.Equals(@event.GroupId)).Name,
+                    CreatorName = users.SingleOrDefault(x => x.UserId.Equals(@event.CreatorId)).Username,
+                    Title = @event.Title,
+                    Date = @event.Date,
+                    Comment = @event.Comment,
+                    Location = @event.Location,
+                    Status = (int)eventUsers.SingleOrDefault(x => x.UserId.Equals(1)).Status //TODO change current user id 
+
+                };
+                list.Add(eventDto);
+            }
+            return list;
         }
     }
 }
