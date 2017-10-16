@@ -63,11 +63,11 @@ namespace BaBookStudentai.API
             var ev = new Event
             {
                 EventUsers = new List<EventUser>(),
-                CreatorId = 1,
+                CreatorId = @event.UserId,
                 Comment = @event.Comment,
                 Date = @event.Date,
                 Location = @event.Location,
-                GroupId = 1,
+                GroupId = @event.GroupId,
                 Title = @event.Title
             };
 
