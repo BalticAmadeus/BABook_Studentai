@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -30,6 +31,7 @@ namespace BaBookStudentai.API
         [Route("api/UserEvent")]
         public IHttpActionResult Post([FromBody]EventUserDto eventUser)
         {
+            
             var evUser = new EventUser
             {
                 EventId = eventUser.EventId,
@@ -37,7 +39,7 @@ namespace BaBookStudentai.API
                 Status = (AttendanceStatus)eventUser.Status
             };
 
-            _db.EventUser.Add(evUser);
+            _db.EventUser.AddOrUpdate(evUser);
             _db.SaveChanges();
 
             return Ok();
