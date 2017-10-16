@@ -23,34 +23,27 @@ namespace BaBookStudentai.DTOs
 
         public int Status { get; set; }
 
-        internal static List<EventDto> Convert(IQueryable<Event> events)
+        internal static List<EventDto> Convert(IQueryable<Event> events, IQueryable<Group> groups,
+                                                IQueryable<EventUser> eventUsers, IQueryable<User> users)
         {
-            return events.Select(e=> new EventDto()
+            var list = new List<EventDto>();
+            foreach (var @event in events)
             {
-                Id = e.EventId,
-                GroupName = "Alus",
-                CreatorName = "vardenis",
-                Title = e.Title,
-                Date = e.Date,
-                Comment = e.Comment,
-                Location = e.Location,
-                Status = 1
-            }).ToList();
-        }
+                var eventDto = new EventDto
+                {
+                    Id = @event.EventId,
+                    GroupName = groups.SingleOrDefault(x => x.GroupId.Equals(@event.GroupId)).Name,
+                    CreatorName = users.SingleOrDefault(x => x.UserId.Equals(@event.CreatorId)).Username,
+                    Title = @event.Title,
+                    Date = @event.Date,
+                    Comment = @event.Comment,
+                    Location = @event.Location,
+                    Status = (int)eventUsers.SingleOrDefault(x => x.UserId.Equals(1)).Status //TODO change current user id 
 
-        internal static EventDto Convert(Event e)
-        {
-            return new EventDto
-            {
-                Id = e.EventId,
-                GroupName = "Alus",
-                CreatorName = "vardenis",
-                Title = e.Title,
-                Date = e.Date,
-                Comment = e.Comment,
-                Location = e.Location,
-                Status = 1
-            };
+                };
+                list.Add(eventDto);
+            }
+            return list;
         }
     }
 }
