@@ -7,6 +7,7 @@ using BaBookStudentai.Entities;
 using System.Net;
 using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
+using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
@@ -73,6 +74,10 @@ namespace BaBookStudentai.API
                 GroupId = @event.GroupId,
                 Title = @event.Title
             };
+
+            ev.Comment = Sanitizer.GetSafeHtmlFragment(ev.Comment);
+            ev.Title = Sanitizer.GetSafeHtmlFragment(ev.Title);
+            ev.Location = Sanitizer.GetSafeHtmlFragment(ev.Location);
 
             _db.Event.Add(ev);
             _db.SaveChanges();

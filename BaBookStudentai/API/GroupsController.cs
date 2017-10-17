@@ -8,6 +8,7 @@ using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
+using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
@@ -80,7 +81,7 @@ namespace BaBookStudentai.API
             {
                 Name = groupDto.Name
             };
-
+            group.Name = Sanitizer.GetSafeHtmlFragment(group.Name);
             _db.Group.Add(group);
             _db.SaveChanges();
         }
