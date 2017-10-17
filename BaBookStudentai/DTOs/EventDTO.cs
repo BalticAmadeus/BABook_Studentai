@@ -39,7 +39,7 @@ namespace BaBookStudentai.DTOs
                     Date = @event.Date,
                     Comment = @event.Comment,
                     Location = @event.Location,
-                    Status = (int)eventUsers.SingleOrDefault(x => x.UserId == 1).Status //TODO change current user id 
+                    Status = (int)eventUsers.FirstOrDefault(x => x.UserId == 1).Status //TODO change current user id 
 
                 };
                 list.Add(eventDto);
