@@ -33,13 +33,13 @@ namespace BaBookStudentai.DTOs
                 var eventDto = new EventDto
                 {
                     Id = @event.EventId,
-                    GroupName = groups.SingleOrDefault(x => x.GroupId == @event.GroupId)?.Name,
-                    CreatorName = users.SingleOrDefault(x => x.UserId == @event.CreatorId)?.Username,
+                    GroupName = groups.SingleOrDefault(x => x.GroupId.Equals(@event.GroupId)).Name,
+                    CreatorName = users.SingleOrDefault(x => x.UserId.Equals(@event.CreatorId)).Username,
                     Title = @event.Title,
                     Date = @event.Date,
                     Comment = @event.Comment,
                     Location = @event.Location,
-                    Status = (int)eventUsers.FirstOrDefault(x => x.UserId == 1).Status //TODO change current user id 
+                    Status = (int)eventUsers.SingleOrDefault(x => x.UserId.Equals(1)).Status //TODO change current user id 
 
                 };
                 list.Add(eventDto);
