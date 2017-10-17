@@ -53,11 +53,17 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -195,6 +201,7 @@
   <ItemGroup>
     <Compile Include="API\CommentsController.cs" />
     <Compile Include="API\EventsController.cs" />
+    <Compile Include="API\GroupsController.cs" />
     <Compile Include="API\UserEventController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -234,6 +241,7 @@
     <Compile Include="DTOs\EventDto.cs" />
     <Compile Include="DTOs\EventParticipantDto.cs" />
     <Compile Include="DTOs\EventUserDto.cs" />
+    <Compile Include="DTOs\GroupDto.cs" />
     <Compile Include="DTOs\UserEventDto.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventComment.cs" />
@@ -342,6 +350,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
+    <Folder Include="Microsoft.AspNetCore.Cors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

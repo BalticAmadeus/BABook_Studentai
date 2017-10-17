@@ -5,10 +5,13 @@ using BaBookStudentai.Models;
 using System.Linq;
 using BaBookStudentai.Entities;
 using System.Net;
+using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.API
 {
+    
+    [EnableCors("*", "*", "*")]
     public class EventsController : ApiController
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
