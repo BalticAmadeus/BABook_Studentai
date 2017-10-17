@@ -4,12 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 
 namespace BaBookStudentai.API
 {
+    [EnableCors("*", "*", "*")]
     public class GroupsController : ApiController
     {
         private readonly GroupsRepository groupsRepository;

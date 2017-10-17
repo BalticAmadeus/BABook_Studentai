@@ -7,7 +7,7 @@ namespace BaBookStudentai.DTOs
 {
     public class EventDto
     {
-        public int Id { get; set; }
+        public int EventId { get; set; }
 
         public string CreatorName { get; set; }
 
@@ -32,7 +32,7 @@ namespace BaBookStudentai.DTOs
             {
                 var eventDto = new EventDto
                 {
-                    Id = @event.EventId,
+                    EventId = @event.EventId,
                     GroupName = groups.SingleOrDefault(x => x.GroupId == @event.GroupId)?.Name,
                     CreatorName = users.SingleOrDefault(x => x.UserId == @event.CreatorId)?.Username,
                     Title = @event.Title,
