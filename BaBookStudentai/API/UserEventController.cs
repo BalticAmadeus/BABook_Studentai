@@ -29,14 +29,14 @@ namespace BaBookStudentai.API
         // POST: api/userevent
         [HttpPost]
         [Route("api/UserEvent")]
-        public IHttpActionResult Post([FromBody]EventUserDto eventUser)
+        public IHttpActionResult Post([FromBody] EventUserDto eventUser)
         {
-            
+
             var evUser = new EventUser
             {
                 EventId = eventUser.EventId,
                 UserId = eventUser.UserId,
-                Status = (AttendanceStatus)eventUser.Status
+                Status = (AttendanceStatus) eventUser.Status
             };
 
             _db.EventUser.AddOrUpdate(evUser);
@@ -51,7 +51,7 @@ namespace BaBookStudentai.API
         public IHttpActionResult Put(EventUserDto eventUser)
         {
             _db.EventUser.Where(x => x.EventId == eventUser.EventId && x.UserId == eventUser.UserId)
-                    .FirstOrDefault().Status = (AttendanceStatus)eventUser.Status;
+                .FirstOrDefault().Status = (AttendanceStatus) eventUser.Status;
             _db.SaveChanges();
             return Ok();
         }
@@ -67,14 +67,15 @@ namespace BaBookStudentai.API
             {
                 var eventParticipation = new EventParticipantDto
                 {
-                    Status = (int)participant.Status,
+                    Status = (int) participant.Status,
                     Name = _db.User.SingleOrDefault(x => x.UserId == participant.UserId)?.Username
                 };
                 participantList.Add(eventParticipation);
             }
-           
+
             return Ok(participantList);
         }
+
     }
 
     public class EventUserRepository
