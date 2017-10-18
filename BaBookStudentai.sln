@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaBookStudentai", "BaBookStudentai\BaBookStudentai.csproj", "{6C8BD010-8595-429D-BBDE-391D4E1CE724}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaBookStudentai.Tests", "BaBookStudentai.Tests\BaBookStudentai.Tests.csproj", "{EDC9CDE3-EBF2-4462-A64C-B4E3ABC97949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{6C8BD010-8595-429D-BBDE-391D4E1CE724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8BD010-8595-429D-BBDE-391D4E1CE724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8BD010-8595-429D-BBDE-391D4E1CE724}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDC9CDE3-EBF2-4462-A64C-B4E3ABC97949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDC9CDE3-EBF2-4462-A64C-B4E3ABC97949}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDC9CDE3-EBF2-4462-A64C-B4E3ABC97949}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDC9CDE3-EBF2-4462-A64C-B4E3ABC97949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
