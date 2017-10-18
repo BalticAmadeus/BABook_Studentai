@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
@@ -42,21 +43,19 @@ namespace BaBookStudentai.API
         }
 
         //POST : api/comments/{eventId}
-
-
-
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("api/comments/{eventId}")]
         public IHttpActionResult Post([FromBody]EventCommentDto comment, [FromUri]int eventId)
         {
 
-            //var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId<int>();
 
             var com = new EventComment
             {
                 UserComment = comment.Comment,
-                UserId = comment.UserId
+                UserId = userId
             };
+
             com.UserComment = Sanitizer.GetSafeHtmlFragment(com.UserComment);
             _db.Event.Where(x => x.EventId == eventId).ToList().Find(x => x.EventId == eventId).EventComments.Add(com);
             _db.SaveChanges();

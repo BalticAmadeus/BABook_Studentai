@@ -57,17 +57,17 @@ namespace BaBookStudentai.API
             return NotFound();
         }
 
-        // POST: api/events
+        //POST: api/events
         [HttpPost]
         [Route("api/events")]
         public IHttpActionResult Post(UserEventModel @event)
         {
-            //var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId<int>();
 
             var ev = new Event
             {
                 EventUsers = new List<EventUser>(),
-                CreatorId = @event.UserId,
+                CreatorId = userId,
                 Comment = @event.Comment,
                 Date = @event.Date,
                 Location = @event.Location,
@@ -100,7 +100,7 @@ namespace BaBookStudentai.API
 
         public IQueryable<User> GetUsers()
         {
-            var users = _db.User;
+            var users = _db.Users;
             return users;
         }
 

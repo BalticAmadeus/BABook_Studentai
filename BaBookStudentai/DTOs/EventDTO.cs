@@ -34,7 +34,7 @@ namespace BaBookStudentai.DTOs
                 {
                     EventId = @event.EventId,
                     GroupName = groups.SingleOrDefault(x => x.GroupId.Equals(@event.GroupId)).Name,
-                    CreatorName = users.SingleOrDefault(x => x.UserId.Equals(@event.CreatorId)).Username,
+                    CreatorName = users.SingleOrDefault(x => x.Id.Equals(@event.CreatorId)).Email,
                     Title = @event.Title,
                     Date = @event.Date,
                     Comment = @event.Comment,

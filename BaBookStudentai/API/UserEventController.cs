@@ -68,7 +68,7 @@ namespace BaBookStudentai.API
                 var eventParticipation = new EventParticipantDto
                 {
                     Status = (int) participant.Status,
-                    Name = _db.User.SingleOrDefault(x => x.UserId == participant.UserId)?.Username
+                    Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.Email
                 };
                 participantList.Add(eventParticipation);
             }
@@ -153,7 +153,7 @@ namespace BaBookStudentai.API
         public IQueryable<User> Get()
         {
 
-            var users = _db.User;
+            var users = _db.Users;
             return users;
         }
     }
