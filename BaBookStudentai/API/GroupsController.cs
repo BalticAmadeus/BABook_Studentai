@@ -25,15 +25,7 @@ namespace BaBookStudentai.API
             groupsRepository = new GroupsRepository();
         }
 
-        //test only
-        [Authorize]
-        [HttpGet]
-        [Route("api/test/{ba}")]
-        public IHttpActionResult Get(string ba)
-        {
-            return Ok(System.Web.HttpContext.Current.User.Identity.GetUserId());
-        }
-        //
+        //System.Web.HttpContext.Current.User.Identity.GetUserId()
 
 
         [Authorize]
