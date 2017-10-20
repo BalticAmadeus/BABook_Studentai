@@ -12,109 +12,109 @@ using Microsoft.Security.Application;
 namespace BaBookStudentai.API
 {
     
-    [EnableCors("*", "*", "*")]
-    public class EventsController : ApiController
-    {
-        private readonly BaBookDbContext _db = new BaBookDbContext();
-        private readonly EventsRepository eventsRepository;
+    //[EnableCors("*", "*", "*")]
+    //public class EventsController : ApiController
+    //{
+    //    private readonly BaBookDbContext _db = new BaBookDbContext();
+    //    //private readonly EventsRepository eventsRepository;
 
-        public EventsController()
-        {
-            eventsRepository = new EventsRepository();
-        }
+    //    public EventsController()
+    //    {
+    //        eventsRepository = new EventsRepository();
+    //    }
 
-        // GET: api/events
-        [HttpGet]
-        [Route("api/events")]
-        public IHttpActionResult Get()
-        {
-            var events = eventsRepository.GetEvents();
-            var groups = eventsRepository.GetGroups();
-            var users = eventsRepository.GetUsers();
-            var eventUsers = eventsRepository.GetEventUsers();
+    //    // GET: api/events
+    //    [HttpGet]
+    //    [Route("api/events")]
+    //    public IHttpActionResult Get()
+    //    {
+    //        var events = eventsRepository.GetEvents();
+    //        var groups = eventsRepository.GetGroups();
+    //        var users = eventsRepository.GetUsers();
+    //        var eventUsers = eventsRepository.GetEventUsers();
 
-            var model = EventDto.Convert(events, groups, eventUsers, users);
+    //        var model = EventDto.Convert(events, groups, eventUsers, users);
 
-            return Ok(model);
-        }
+    //        return Ok(model);
+    //    }
 
-        // GET: api/events/{id}
-        [HttpGet]
-        [Route("api/events/{id}")]
-        public IHttpActionResult Get([FromUri] int id)
-        {
-            var @event = eventsRepository.GetEvents().Where(x => x.EventId == id);
-            var groups = eventsRepository.GetGroups();
-            var users = eventsRepository.GetUsers();
-            var eventUsers = eventsRepository.GetEventUsers();
+    //    // GET: api/events/{id}
+    //    [HttpGet]
+    //    [Route("api/events/{id}")]
+    //    public IHttpActionResult Get([FromUri] int id)
+    //    {
+    //        var @event = eventsRepository.GetEvents().Where(x => x.EventId == id);
+    //        var groups = eventsRepository.GetGroups();
+    //        var users = eventsRepository.GetUsers();
+    //        var eventUsers = eventsRepository.GetEventUsers();
 
-            if (@event.Any())
-            {
-                var model = EventDto.Convert(@event, groups, eventUsers, users).SingleOrDefault();
-                return Ok(model);
-            }
+    //        if (@event.Any())
+    //        {
+    //            var model = EventDto.Convert(@event, groups, eventUsers, users).SingleOrDefault();
+    //            return Ok(model);
+    //        }
 
-            return NotFound();
-        }
+    //        return NotFound();
+    //    }
 
-        //POST: api/events
-        [HttpPost]
-        [Route("api/events")]
-        public IHttpActionResult Post(UserEventModel @event)
-        {
-            var userId = User.Identity.GetUserId<int>();
+    //    //POST: api/events
+    //    [HttpPost]
+    //    [Route("api/events")]
+    //    public IHttpActionResult Post(UserEventModel @event)
+    //    {
+    //        var userId = User.Identity.GetUserId<int>();
 
-            var ev = new Event
-            {
-                EventUsers = new List<EventUser>(),
-                CreatorId = userId,
-                Comment = @event.Comment,
-                Date = @event.Date,
-                Location = @event.Location,
-                GroupId = @event.GroupId,
-                Title = @event.Title
-            };
+    //        var ev = new Event
+    //        {
+    //            EventUsers = new List<EventUser>(),
+    //            CreatorId = userId,
+    //            Comment = @event.Comment,
+    //            Date = @event.Date,
+    //            Location = @event.Location,
+    //            GroupId = @event.GroupId,
+    //            Title = @event.Title
+    //        };
 
-            ev.Comment = Sanitizer.GetSafeHtmlFragment(ev.Comment);
-            ev.Title = Sanitizer.GetSafeHtmlFragment(ev.Title);
-            ev.Location = Sanitizer.GetSafeHtmlFragment(ev.Location);
+    //        ev.Comment = Sanitizer.GetSafeHtmlFragment(ev.Comment);
+    //        ev.Title = Sanitizer.GetSafeHtmlFragment(ev.Title);
+    //        ev.Location = Sanitizer.GetSafeHtmlFragment(ev.Location);
 
-            _db.Event.Add(ev);
-            _db.SaveChanges();
+    //        _db.Event.Add(ev);
+    //        _db.SaveChanges();
 
-            return Ok();
-        }
+    //        return Ok();
+    //    }
 
-    }
+    //}
 
 
-    public class EventsRepository
-    {
-        private readonly BaBookDbContext _db = new BaBookDbContext();
+    ////public class EventsRepository
+    ////{
+    ////    private readonly BaBookDbContext _db = new BaBookDbContext();
 
-        public IQueryable<Event> GetEvents()
-        {
-            var events = _db.Event;
-            return events;
-        }
+    ////    public IQueryable<Event> GetEvents()
+    ////    {
+    ////        var events = _db.Event;
+    ////        return events;
+    ////    }
 
-        public IQueryable<User> GetUsers()
-        {
-            var users = _db.Users;
-            return users;
-        }
+    ////    public IQueryable<User> GetUsers()
+    ////    {
+    ////        var users = _db.Users;
+    ////        return users;
+    ////    }
 
-        public IQueryable<Group> GetGroups()
-        {
-            var groups = _db.Group;
-            return groups;
-        }
+    ////    public IQueryable<Group> GetGroups()
+    ////    {
+    ////        var groups = _db.Group;
+    ////        return groups;
+    ////    }
 
-        public IQueryable<EventUser> GetEventUsers()
-        {
-            var events = _db.EventUser;
-            return events;
-        }
+    ////    public IQueryable<EventUser> GetEventUsers()
+    ////    {
+    ////        var events = _db.EventUser;
+    ////        return events;
+    ////    }
 
-    }
+    ////}
 }

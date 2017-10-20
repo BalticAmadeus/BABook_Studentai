@@ -10,155 +10,155 @@ using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 
-namespace BaBookStudentai.API
-{
-    [EnableCors("*", "*", "*")]
-    public class UserEventController : ApiController
-    {
+//namespace BaBookStudentai.API
+//{
+//    [EnableCors("*", "*", "*")]
+//    public class UserEventController : ApiController
+//    {
 
-        private readonly BaBookDbContext _db = new BaBookDbContext();
-        private readonly EventUserRepository _eventUserRepository;
-        private readonly UserRepository _userRepository;
+//        private readonly BaBookDbContext _db = new BaBookDbContext();
+//        private readonly EventUserRepository _eventUserRepository;
+//        private readonly UserRepository _userRepository;
 
-        public UserEventController()
-        {
-            _eventUserRepository = new EventUserRepository();
-            _userRepository = new UserRepository();
-        }
+//        public UserEventController()
+//        {
+//            _eventUserRepository = new EventUserRepository();
+//            _userRepository = new UserRepository();
+//        }
 
-        // POST: api/userevent
-        [HttpPost]
-        [Route("api/UserEvent")]
-        public IHttpActionResult Post([FromBody] EventUserDto eventUser)
-        {
+//        // POST: api/userevent
+//        [HttpPost]
+//        [Route("api/UserEvent")]
+//        public IHttpActionResult Post([FromBody] EventUserDto eventUser)
+//        {
 
-            var evUser = new EventUser
-            {
-                EventId = eventUser.EventId,
-                UserId = eventUser.UserId,
-                Status = (AttendanceStatus) eventUser.Status
-            };
+//            var evUser = new EventUser
+//            {
+//                EventId = eventUser.EventId,
+//                UserId = eventUser.UserId,
+//                Status = (AttendanceStatus) eventUser.Status
+//            };
 
-            _db.EventUser.AddOrUpdate(evUser);
-            _db.SaveChanges();
+//            _db.EventUser.AddOrUpdate(evUser);
+//            _db.SaveChanges();
 
-            return Ok();
-        }
+//            return Ok();
+//        }
 
-        // PUT: api/userevent
-        [HttpPut]
-        [Route("api/UserEvent")]
-        public IHttpActionResult Put(EventUserDto eventUser)
-        {
-            _db.EventUser.Where(x => x.EventId == eventUser.EventId && x.UserId == eventUser.UserId)
-                .FirstOrDefault().Status = (AttendanceStatus) eventUser.Status;
-            _db.SaveChanges();
-            return Ok();
-        }
+//        // PUT: api/userevent
+//        [HttpPut]
+//        [Route("api/UserEvent")]
+//        public IHttpActionResult Put(EventUserDto eventUser)
+//        {
+//            _db.EventUser.Where(x => x.EventId == eventUser.EventId && x.UserId == eventUser.UserId)
+//                .FirstOrDefault().Status = (AttendanceStatus) eventUser.Status;
+//            _db.SaveChanges();
+//            return Ok();
+//        }
 
-        // GET: api/userevents/{eventId}
-        [HttpGet]
-        [Route("api/UserEvent/{eventId}")]
-        public IHttpActionResult Get(int eventId)
-        {
-            var participatingUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
-            List<EventParticipantDto> participantList = new List<EventParticipantDto>();
-            foreach (var participant in participatingUsers)
-            {
-                var eventParticipation = new EventParticipantDto
-                {
-                    Status = (int) participant.Status,
-                    Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.Email
-                };
-                participantList.Add(eventParticipation);
-            }
+//        // GET: api/userevents/{eventId}
+//        [HttpGet]
+//        [Route("api/UserEvent/{eventId}")]
+//        public IHttpActionResult Get(int eventId)
+//        {
+//            var participatingUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
+//            List<EventParticipantDto> participantList = new List<EventParticipantDto>();
+//            foreach (var participant in participatingUsers)
+//            {
+//                var eventParticipation = new EventParticipantDto
+//                {
+//                    Status = (int) participant.Status,
+//                    Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.Email
+//                };
+//                participantList.Add(eventParticipation);
+//            }
 
-            return Ok(participantList);
-        }
+//            return Ok(participantList);
+//        }
 
-    }
+//    }
 
-    public class EventUserRepository
+//    public class EventUserRepository
 
-       /* private readonly UserEventRepository _userEventRepository;
+//       /* private readonly UserEventRepository _userEventRepository;
 
-        public UserEventController()
-        {
-            _userEventRepository = new UserEventRepository();
-        }
+//        public UserEventController()
+//        {
+//            _userEventRepository = new UserEventRepository();
+//        }
 
-        // GET api/<controller>
-        public IHttpActionResult Get()
-        {
-            var events = _userEventRepository.Get();
+//        // GET api/<controller>
+//        public IHttpActionResult Get()
+//        {
+//            var events = _userEventRepository.Get();
 
-            var model = UserEventDto.Convert(events);
+//            var model = UserEventDto.Convert(events);
 
-            return Ok(model);
-        }
+//            return Ok(model);
+//        }
 
-        // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
-        {
-            var participants = _userEventRepository.Get().Where(qq => qq.EventId == id);
+//        // GET api/<controller>/5
+//        public IHttpActionResult Get(int id)
+//        {
+//            var participants = _userEventRepository.Get().Where(qq => qq.EventId == id);
 
-            var model = UserEventDto.Convert(participants);
+//            var model = UserEventDto.Convert(participants);
 
-            if (participants != null)
-            {
-                return Ok(model);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+//            if (participants != null)
+//            {
+//                return Ok(model);
+//            }
+//            else
+//            {
+//                return NotFound();
+//            }
+//        }
 
        
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+//        // POST api/<controller>
+//        public void Post([FromBody]string value)
+//        {
+//        }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+//        // PUT api/<controller>/5
+//        public void Put(int id, [FromBody]string value)
+//        {
+//        }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
-    }*/
+//        // DELETE api/<controller>/5
+//        public void Delete(int id)
+//        {
+//        }
+//    }*/
 
-    //public class UserEventRepository
+//    //public class UserEventRepository
 
-    {
-        private readonly BaBookDbContext _db = new BaBookDbContext();
+//    {
+//        private readonly BaBookDbContext _db = new BaBookDbContext();
 
-        public IQueryable<EventUser> Get()
-        {
+//        public IQueryable<EventUser> Get()
+//        {
 
-            var eventUsers = _db.EventUser;
-            return eventUsers;
-        }
+//            var eventUsers = _db.EventUser;
+//            return eventUsers;
+//        }
 
-    }
+//    }
 
-    public class UserRepository
-    {
-        private readonly BaBookDbContext _db = new BaBookDbContext();
+//    public class UserRepository
+//    {
+//        private readonly BaBookDbContext _db = new BaBookDbContext();
 
-        public IQueryable<User> Get()
-        {
+//        public IQueryable<User> Get()
+//        {
 
-            var users = _db.Users;
-            return users;
-        }
-    }
+//            var users = _db.Users;
+//            return users;
+//        }
+//    }
 
-}
+//}
 /*
             return _db.EventUser;
         }

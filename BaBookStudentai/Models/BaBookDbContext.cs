@@ -9,8 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BaBookStudentai.Models
 {
-    public class BaBookDbContext : IdentityDbContext<User, CustomRole,
-                        int, CustomUserLogin, CustomUserRole, CustomUserClaim>
+    public class BaBookDbContext : IdentityDbContext
     {
         //public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }

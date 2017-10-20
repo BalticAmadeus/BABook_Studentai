@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 using Microsoft.Security.Application;
+using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.API
 {
@@ -22,6 +25,18 @@ namespace BaBookStudentai.API
             groupsRepository = new GroupsRepository();
         }
 
+        //test only
+        [Authorize]
+        [HttpGet]
+        [Route("api/test/{ba}")]
+        public IHttpActionResult Get(string ba)
+        {
+            return Ok(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        }
+        //
+
+
+        [Authorize]
         [HttpGet]
         [Route("api/groups")]
         public IHttpActionResult Get()
@@ -35,7 +50,7 @@ namespace BaBookStudentai.API
         [Route("api/groups/{id}")]
         public IHttpActionResult Get(int id)
         {
-            var model = GroupDto.Convert(groupsRepository.Get()).SingleOrDefault(); 
+            var model = GroupDto.Convert(groupsRepository.Get()).SingleOrDefault();
 
             return Ok(model);
         }
