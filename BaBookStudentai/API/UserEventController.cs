@@ -77,6 +77,34 @@ namespace BaBookStudentai.API
             return Ok(participantList);
         }
 
+        [HttpGet]
+        [Route("api/userevent/invitable/{eventId}")]
+        public IHttpActionResult GetInvitable([FromUri] int eventId)
+        {
+            List<EventUser> invitedUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
+            List<UserDto> notInvitedUsers = new List<UserDto>();
+            foreach (var user in _db.Users)
+            {
+                bool invited = false;
+                foreach (var invitedUser in invitedUsers)
+                {
+                    if (user.Id == invitedUser.UserId)
+                    {
+                        invited = true;
+                    }
+                }
+                if (!invited)
+                {
+                    var usr = new UserDto
+                    {
+                        Name = user.UserName,
+                        UserId = user.Id
+                    };
+                    notInvitedUsers.Add(usr);
+                }
+            }
+            return Ok(notInvitedUsers);
+        }
     }
 
     public class EventUserRepository

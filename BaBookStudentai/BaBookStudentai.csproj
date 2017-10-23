@@ -250,6 +250,7 @@
     <Compile Include="DTOs\EventParticipantDto.cs" />
     <Compile Include="DTOs\EventUserDto.cs" />
     <Compile Include="DTOs\GroupDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="DTOs\UserEventDto.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventComment.cs" />
