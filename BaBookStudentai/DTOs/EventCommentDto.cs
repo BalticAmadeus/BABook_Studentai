@@ -7,7 +7,7 @@ namespace BaBookStudentai.DTOs
 {
     public class EventCommentDto
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Comment { get; set; }
     }
 }
