@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BaBookStudentai.Models
+namespace BaBookStudentai.DTOs
 {
-    public class UserModel
+    public class UserDto
     {
         public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string Name { get; set; }
     }
 }

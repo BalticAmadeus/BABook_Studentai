@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
@@ -12,6 +8,7 @@ using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
+    [Authorize]
     [EnableCors("*", "*", "*")]
     public class GroupsController : ApiController
     {
@@ -22,6 +19,7 @@ namespace BaBookStudentai.API
             groupsRepository = new GroupsRepository();
         }
 
+
         [HttpGet]
         [Route("api/groups")]
         public IHttpActionResult Get()
@@ -31,14 +29,16 @@ namespace BaBookStudentai.API
             return Ok(model);
         }
 
+
         [HttpGet]
         [Route("api/groups/{id}")]
         public IHttpActionResult Get(int id)
         {
-            var model = GroupDto.Convert(groupsRepository.Get()).SingleOrDefault(); 
+            var model = GroupDto.Convert(groupsRepository.Get()).SingleOrDefault();
 
             return Ok(model);
         }
+
 
         [HttpPost]
         [Route("api/groups")]
@@ -48,6 +48,7 @@ namespace BaBookStudentai.API
 
             return Ok();
         }
+
 
         [HttpPut]
         [Route("api/groups")]

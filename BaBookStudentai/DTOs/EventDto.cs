@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BaBookStudentai.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.DTOs
 {
@@ -25,8 +26,10 @@ namespace BaBookStudentai.DTOs
 
 
         internal static List<EventDto> Convert(IQueryable<Event> events, IQueryable<Group> groups,
-                                                IQueryable<EventUser> eventUsers, IQueryable<User> users)
+                                                IQueryable<EventUser> eventUsers, IQueryable<User> users)      
         {
+            var userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
             var list = new List<EventDto>();
             foreach (var @event in events)
             {
@@ -39,7 +42,7 @@ namespace BaBookStudentai.DTOs
                     Date = @event.Date,
                     Comment = @event.Comment,
                     Location = @event.Location,
-                    Status = (int)eventUsers.FirstOrDefault(x => x.UserId.Equals(1)).Status
+                    Status = (int)eventUsers.FirstOrDefault(x => x.UserId == userID).Status
                 };
                 list.Add(eventDto);
             }

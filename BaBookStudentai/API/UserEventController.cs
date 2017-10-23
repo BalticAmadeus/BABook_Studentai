@@ -12,6 +12,7 @@ using BaBookStudentai.Models;
 
 namespace BaBookStudentai.API
 {
+    [Authorize]
     [EnableCors("*", "*", "*")]
     public class UserEventController : ApiController
     {
@@ -36,7 +37,7 @@ namespace BaBookStudentai.API
             {
                 EventId = eventUser.EventId,
                 UserId = eventUser.UserId,
-                Status = (AttendanceStatus) eventUser.Status
+                Status = (AttendanceStatus)eventUser.Status
             };
 
             _db.EventUser.AddOrUpdate(evUser);
@@ -51,7 +52,7 @@ namespace BaBookStudentai.API
         public IHttpActionResult Put(EventUserDto eventUser)
         {
             _db.EventUser.Where(x => x.EventId == eventUser.EventId && x.UserId == eventUser.UserId)
-                .FirstOrDefault().Status = (AttendanceStatus) eventUser.Status;
+                .FirstOrDefault().Status = (AttendanceStatus)eventUser.Status;
             _db.SaveChanges();
             return Ok();
         }
@@ -67,7 +68,7 @@ namespace BaBookStudentai.API
             {
                 var eventParticipation = new EventParticipantDto
                 {
-                    Status = (int) participant.Status,
+                    Status = (int)participant.Status,
                     Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.Email
                 };
                 participantList.Add(eventParticipation);
@@ -76,64 +77,37 @@ namespace BaBookStudentai.API
             return Ok(participantList);
         }
 
+        [HttpGet]
+        [Route("api/userevent/invitable/{eventId}")]
+        public IHttpActionResult GetInvitable([FromUri] int eventId)
+        {
+            List<EventUser> invitedUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
+            List<UserDto> notInvitedUsers = new List<UserDto>();
+            foreach (var user in _db.Users)
+            {
+                bool invited = false;
+                foreach (var invitedUser in invitedUsers)
+                {
+                    if (user.Id == invitedUser.UserId)
+                    {
+                        invited = true;
+                    }
+                }
+                if (!invited)
+                {
+                    var usr = new UserDto
+                    {
+                        Name = user.UserName,
+                        UserId = user.Id
+                    };
+                    notInvitedUsers.Add(usr);
+                }
+            }
+            return Ok(notInvitedUsers);
+        }
     }
 
     public class EventUserRepository
-
-       /* private readonly UserEventRepository _userEventRepository;
-
-        public UserEventController()
-        {
-            _userEventRepository = new UserEventRepository();
-        }
-
-        // GET api/<controller>
-        public IHttpActionResult Get()
-        {
-            var events = _userEventRepository.Get();
-
-            var model = UserEventDto.Convert(events);
-
-            return Ok(model);
-        }
-
-        // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
-        {
-            var participants = _userEventRepository.Get().Where(qq => qq.EventId == id);
-
-            var model = UserEventDto.Convert(participants);
-
-            if (participants != null)
-            {
-                return Ok(model);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-
-       
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
-    }*/
-
-    //public class UserEventRepository
-
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
 
@@ -143,7 +117,6 @@ namespace BaBookStudentai.API
             var eventUsers = _db.EventUser;
             return eventUsers;
         }
-
     }
 
     public class UserRepository
@@ -152,17 +125,10 @@ namespace BaBookStudentai.API
 
         public IQueryable<User> Get()
         {
-
             var users = _db.Users;
             return users;
         }
     }
 
 }
-/*
-            return _db.EventUser;
-        }
 
-    }
-}
-*/

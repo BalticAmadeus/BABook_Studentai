@@ -11,7 +11,7 @@ using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
-    
+    [Authorize]
     [EnableCors("*", "*", "*")]
     public class EventsController : ApiController
     {
@@ -62,7 +62,7 @@ namespace BaBookStudentai.API
         [Route("api/events")]
         public IHttpActionResult Post(UserEventModel @event)
         {
-            var userId = User.Identity.GetUserId<int>();
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             var ev = new Event
             {

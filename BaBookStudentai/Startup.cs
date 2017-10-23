@@ -7,6 +7,9 @@ using BaBookStudentai.Models;
 using BaBookStudentai.Entities;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
+using System.Web.Http;
+using Microsoft.Owin.Security.OAuth;
+using BaBookStudentai.Provider;
 
 [assembly: OwinStartup(typeof(BaBookStudentai.Startup))]
 
@@ -16,18 +19,26 @@ namespace BaBookStudentai
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            ConfigureOAuth(app);
+            HttpConfiguration config = new HttpConfiguration();
+            WebApiConfig.Register(config);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);            app.UseWebApi(config);
 
-            //using (var db = new BaBookDbContext())
-            //{
-            //    Group group = new Group
-            //    {
-            //        Name = "Alus"
+        }
 
-            //    };
-            //    db.Group.Add(group);
-            //    db.SaveChanges();
-            //}
+        public void ConfigureOAuth(IAppBuilder app)
+        {
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = new SimpleAuthorizationServerProvider()
+            };
+
+            // Token Generation
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             // Branch the pipeline here for requests that start with "/signalr"
             app.Map("/signalr", map =>
@@ -51,6 +62,5 @@ namespace BaBookStudentai
             });
 
         }
-        
     }
 }
