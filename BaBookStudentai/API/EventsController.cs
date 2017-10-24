@@ -4,10 +4,10 @@ using BaBookStudentai.DTOs;
 using BaBookStudentai.Models;
 using System.Linq;
 using BaBookStudentai.Entities;
-using System.Net;
 using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.Security.Application;
+
 
 namespace BaBookStudentai.API
 {
@@ -22,7 +22,6 @@ namespace BaBookStudentai.API
         {
             eventsRepository = new EventsRepository();
         }
-
         // GET: api/events
         [HttpGet]
         [Route("api/events")]
