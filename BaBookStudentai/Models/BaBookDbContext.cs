@@ -11,7 +11,6 @@ namespace BaBookStudentai.Models
 {
     public class BaBookDbContext : IdentityDbContext<User>
     {
-        //public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<EventUser> EventUser { get; set; }
