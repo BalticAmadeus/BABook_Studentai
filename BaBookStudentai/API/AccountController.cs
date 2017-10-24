@@ -1,13 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.Controllers
-{ }
+{
+}
+
+    [EnableCors("*", "*", "*")]
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;

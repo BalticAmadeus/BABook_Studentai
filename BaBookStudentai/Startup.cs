@@ -7,7 +7,9 @@ using BaBookStudentai.Models;
 using BaBookStudentai.Entities;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
+
 using System.Web.Http;
+
 using Microsoft.Owin.Security.OAuth;
 using BaBookStudentai.Provider;
 
@@ -19,10 +21,11 @@ namespace BaBookStudentai
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);            app.UseWebApi(config);
+            app.UseWebApi(config);
 
             // Branch the pipeline here for requests that start with "/signalr"
             app.Map("/signalr", map =>
@@ -45,7 +48,6 @@ namespace BaBookStudentai
                 map.RunSignalR(hubConfiguration);
             });
         }
-
         public void ConfigureOAuth(IAppBuilder app)
         {
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
