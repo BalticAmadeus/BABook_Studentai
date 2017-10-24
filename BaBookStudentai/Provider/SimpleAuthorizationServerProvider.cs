@@ -17,8 +17,6 @@ namespace BaBookStudentai.Provider
         {
             User user;
 
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
             using (AuthRepository _repo = new AuthRepository())
             {
                 user = await _repo.FindUser(context.UserName, context.Password);

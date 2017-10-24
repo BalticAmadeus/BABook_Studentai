@@ -30,7 +30,10 @@ namespace BaBookStudentai
         public void Connect(string userName)
         {
             var id = Context.ConnectionId;
+            var user = Context.User;
 
+            //userName = user.Identity.Name;
+            
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
@@ -41,7 +44,6 @@ namespace BaBookStudentai
 
                 // send to all except caller client
                 Clients.AllExcept(id).onNewUserConnected(id, userName);
-
             }
 
         }

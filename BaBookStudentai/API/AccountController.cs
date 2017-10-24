@@ -7,9 +7,8 @@ using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 using Microsoft.AspNet.Identity;
 
-namespace BaBookStudentai.Controllers
+namespace BaBookStudentai.API
 {
-}
 
     [EnableCors("*", "*", "*")]
     public class AccountController : ApiController
@@ -20,6 +19,7 @@ namespace BaBookStudentai.Controllers
         {
             _repo = new AuthRepository();
         }
+
         public User GetById(string id)
         {
             var _db = new BaBookDbContext();
@@ -36,7 +36,7 @@ namespace BaBookStudentai.Controllers
             {
                 UserId = userId,
                 Name = GetById(userId).UserName
-    };
+            };
             return Ok();
         }
 
@@ -102,3 +102,4 @@ namespace BaBookStudentai.Controllers
         }
     }
 
+}
