@@ -22,13 +22,14 @@ namespace BaBookStudentai.API
         {
             eventsRepository = new EventsRepository();
         }
-        // GET: api/events
+
+        // GET: api/events/group/{groupId}
         [HttpGet]
-        [Route("api/events")]
-        public IHttpActionResult Get()
+        [Route("api/events/group/{groupId}")]
+        public IHttpActionResult Get([FromUri] int groupId)
         {
-            var events = eventsRepository.GetEvents();
-            var groups = eventsRepository.GetGroups();
+            var events = eventsRepository.GetEvents(groupId);
+            var groups = eventsRepository.GetGroups(groupId);
             var users = eventsRepository.GetUsers();
             var eventUsers = eventsRepository.GetEventUsers();
 
@@ -38,48 +39,31 @@ namespace BaBookStudentai.API
         }
 
         // GET: api/events/{id}
-        [HttpGet]
-        [Route("api/events/{id}")]
-        public IHttpActionResult Get([FromUri] int id)
-        {
-            var @event = eventsRepository.GetEvents().Where(x => x.EventId == id);
-            var groups = eventsRepository.GetGroups();
-            var users = eventsRepository.GetUsers();
-            var eventUsers = eventsRepository.GetEventUsers();
+        //[HttpGet]
+        //[Route("api/events/{id}")]
+        //public IHttpActionResult Get([FromUri] int id)
+        //{
+        //    var @event = eventsRepository.GetEvents().Where(x => x.EventId == id);
+        //    var groups = eventsRepository.GetGroups();
+        //    var users = eventsRepository.GetUsers();
+        //    var eventUsers = eventsRepository.GetEventUsers();
 
-            if (@event.Any())
-            {
-                var model = EventDto.Convert(@event, groups, eventUsers, users).SingleOrDefault();
-                return Ok(model);
-            }
+        //    if (@event.Any())
+        //    {
+        //        var model = EventDto.Convert(@event, groups, eventUsers, users).SingleOrDefault();
+        //        return Ok(model);
+        //    }
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
+
 
         //POST: api/events
         [HttpPost]
         [Route("api/events")]
-        public IHttpActionResult Post(UserEventModel @event)
+        public IHttpActionResult Post(AddEventDto @event)
         {
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-
-            var ev = new Event
-            {
-                EventUsers = new List<EventUser>(),
-                CreatorId = userId,
-                Comment = @event.Comment,
-                Date = @event.Date,
-                Location = @event.Location,
-                GroupId = @event.GroupId,
-                Title = @event.Title
-            };
-
-            ev.Comment = Sanitizer.GetSafeHtmlFragment(ev.Comment);
-            ev.Title = Sanitizer.GetSafeHtmlFragment(ev.Title);
-            ev.Location = Sanitizer.GetSafeHtmlFragment(ev.Location);
-
-            _db.Event.Add(ev);
-            _db.SaveChanges();
+            eventsRepository.PostNewEvent(@event);
 
             return Ok();
         }
@@ -91,9 +75,9 @@ namespace BaBookStudentai.API
     {
         private readonly BaBookDbContext _db = new BaBookDbContext();
 
-        public IQueryable<Event> GetEvents()
+        public IQueryable<Event> GetEvents(int groupId)
         {
-            var events = _db.Event;
+            IQueryable<Event> events = _db.Event.Where(x => x.GroupId == groupId);
             return events;
         }
 
@@ -103,17 +87,38 @@ namespace BaBookStudentai.API
             return users;
         }
 
-        public IQueryable<Group> GetGroups()
+        public IQueryable<Group> GetGroups(int groupId)
         {
-            var groups = _db.Group;
+            IQueryable<Group> groups = _db.Group.Where(x => x.GroupId == groupId);
             return groups;
         }
 
         public IQueryable<EventUser> GetEventUsers()
         {
-            var events = _db.EventUser;
-            return events;
+            var eventUsers = _db.EventUser;
+            return eventUsers;
         }
 
+        public void PostNewEvent(AddEventDto @event)
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            var ev = new Event
+            {
+                GroupId = @event.GroupId,
+                Title = @event.Title,
+                CreatorId = userId,
+                Comment = @event.Comment,
+                Date = @event.Date,
+                Location = @event.Location                
+            };
+
+            ev.Comment = Sanitizer.GetSafeHtmlFragment(ev.Comment);
+            ev.Title = Sanitizer.GetSafeHtmlFragment(ev.Title);
+            ev.Location = Sanitizer.GetSafeHtmlFragment(ev.Location);
+
+            _db.Event.Add(ev);
+            _db.SaveChanges();
+        }
     }
 }
