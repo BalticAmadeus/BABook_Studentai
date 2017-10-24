@@ -22,6 +22,7 @@ namespace BaBookStudentai.Models
         {
             User user = new User
             {
+                Email = userModel.Email,
                 UserName = userModel.UserName
             };
 

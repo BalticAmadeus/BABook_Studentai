@@ -5,12 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BaBookStudentai.DTOs;
+using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
 using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.Controllers
-{
-    [RoutePrefix("api/Account")]
+{ }
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
@@ -19,10 +20,29 @@ namespace BaBookStudentai.Controllers
         {
             _repo = new AuthRepository();
         }
+        public User GetById(string id)
+        {
+            var _db = new BaBookDbContext();
+            var user = _db.Users.FirstOrDefault(x => x.Id.Equals(id));
+            return user;
+        }
 
-        // POST api/Account/Register
+        [Authorize]
+        [Route("api/user")]
+        public IHttpActionResult GetUser()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var usr = new UserDto
+            {
+                UserId = userId,
+                Name = GetById(userId).UserName
+    };
+            return Ok();
+        }
+
+        // POST api/Register
         [AllowAnonymous]
-        [Route("Register")]
+        [Route("api/register")]
         public async Task<IHttpActionResult> Register(UserViewModel userModel)
         {
             if (!ModelState.IsValid)
@@ -81,4 +101,4 @@ namespace BaBookStudentai.Controllers
             return null;
         }
     }
-}
+
