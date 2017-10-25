@@ -13,17 +13,17 @@ namespace BaBookStudentai
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
 
-        public void UserDisconnect()
+        public void UserDisconnect(string id)
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == id);
+
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
 
-                var id = Context.ConnectionId;
                 Clients.All.onUserDisconnected(id, item.UserName);
 
-                Clients.All.messageReceived(item.UserName, "Has disconnected");
+                Send("Server", item.UserName + " has disconnected");
             }
         }
 
@@ -42,19 +42,22 @@ namespace BaBookStudentai
                 // send to caller
                 Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
+
                 // send to all except caller client
                 Clients.AllExcept(id).onNewUserConnected(id, userName);
+
+                Send("Server", userName + " has connected");
             }
 
         }
 
-        public void SendMessageToAll(string userName, string message)
+        public void Send(string userName, string message)
         {
             // store last 100 messages in cache
             AddMessageinCache(userName, message);
 
             // Broad cast message
-            Clients.All.messageReceived(userName, message);
+            Clients.All.broadcastMessage(userName, message);
         }
 
         public void SendPrivateMessage(string toUserId, string message)
@@ -76,7 +79,7 @@ namespace BaBookStudentai
 
         }
 
-        // nzn kaip issaukt nei is cliento, nei is srv. automatiskai kvieciasi
+        // cia kvieciasi kai tiemoutas buna
         public override System.Threading.Tasks.Task OnDisconnected(bool t)
         {
             if (t)
