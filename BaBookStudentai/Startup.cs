@@ -12,6 +12,7 @@ using System.Web.Http;
 
 using Microsoft.Owin.Security.OAuth;
 using BaBookStudentai.Provider;
+using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(BaBookStudentai.Startup))]
 
@@ -24,6 +25,8 @@ namespace BaBookStudentai
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
             HttpConfiguration config = new HttpConfiguration();
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
             WebApiConfig.Register(config);
             app.UseWebApi(config);
 

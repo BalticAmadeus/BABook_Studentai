@@ -23,7 +23,7 @@ namespace BaBookStudentai.Models
             User user = new User
             {
                 UserName = userModel.Email,
-                Nickname = userModel.Username
+                Nickname = userModel.Name
             };
 
             var result = await _userManager.CreateAsync(user, userModel.Password);

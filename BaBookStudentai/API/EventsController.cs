@@ -11,7 +11,7 @@ using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
-    [Authorize]
+    [AllowAnonymous]
     [EnableCors("*", "*", "*")]
     public class EventsController : ApiController
     {
@@ -38,24 +38,18 @@ namespace BaBookStudentai.API
             return Ok(model);
         }
 
-        // GET: api/events/{id}
-        //[HttpGet]
-        //[Route("api/events/{id}")]
-        //public IHttpActionResult Get([FromUri] int id)
-        //{
-        //    var @event = eventsRepository.GetEvents().Where(x => x.EventId == id);
-        //    var groups = eventsRepository.GetGroups();
-        //    var users = eventsRepository.GetUsers();
-        //    var eventUsers = eventsRepository.GetEventUsers();
-
-        //    if (@event.Any())
-        //    {
-        //        var model = EventDto.Convert(@event, groups, eventUsers, users).SingleOrDefault();
-        //        return Ok(model);
-        //    }
-
-        //    return NotFound();
-        //}
+        // GET: api/events
+        [HttpGet]
+        [Route("api/events")]
+        public IHttpActionResult GetEvents()
+        {
+             var events = eventsRepository.GetAllEvents();
+             var groups = eventsRepository.GetAllGroups();
+             var users = eventsRepository.GetUsers();
+             var eventUsers = eventsRepository.GetEventUsers();
+             var model = EventDto.Convert(events, groups, eventUsers, users);
+             return Ok(model);
+        }
 
 
         //POST: api/events
@@ -80,6 +74,11 @@ namespace BaBookStudentai.API
             IQueryable<Event> events = _db.Event.Where(x => x.GroupId == groupId);
             return events;
         }
+        public IQueryable<Event> GetAllEvents()
+        {
+            IQueryable<Event> events = _db.Event;
+            return events;
+        }
 
         public IQueryable<User> GetUsers()
         {
@@ -92,6 +91,13 @@ namespace BaBookStudentai.API
             IQueryable<Group> groups = _db.Group.Where(x => x.GroupId == groupId);
             return groups;
         }
+
+        public IQueryable<Group> GetAllGroups()
+        {
+            IQueryable<Group> groups = _db.Group;
+            return groups;
+        }
+
 
         public IQueryable<EventUser> GetEventUsers()
         {
