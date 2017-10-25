@@ -37,7 +37,7 @@ namespace BaBookStudentai.API
                 UserId = userId,
                 Name = GetById(userId).UserName
             };
-            return Ok();
+            return Ok(usr);
         }
 
         // POST api/Register
