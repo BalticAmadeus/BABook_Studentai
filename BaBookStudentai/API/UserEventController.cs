@@ -6,6 +6,7 @@ using System.Web.Http.Cors;
 using BaBookStudentai.DTOs;
 using BaBookStudentai.Entities;
 using BaBookStudentai.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BaBookStudentai.API
 {
@@ -29,7 +30,6 @@ namespace BaBookStudentai.API
         [Route("api/UserEvent")]
         public IHttpActionResult Post([FromBody] EventUserDto eventUser)
         {
-
             var evUser = new EventUser
             {
                 EventId = eventUser.EventId,
@@ -66,7 +66,7 @@ namespace BaBookStudentai.API
                 var eventParticipation = new EventParticipantDto
                 {
                     Status = (int)participant.Status,
-                    Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.Email
+                    Name = _db.Users.SingleOrDefault(x => x.Id == participant.UserId)?.UserName
                 };
                 participantList.Add(eventParticipation);
             }
@@ -79,7 +79,7 @@ namespace BaBookStudentai.API
         public IHttpActionResult GetInvitable([FromUri] int eventId)
         {
             List<EventUser> invitedUsers = _db.EventUser.Where(x => x.EventId == eventId).ToList();
-            List<UserDto> notInvitedUsers = new List<UserDto>();
+            List<InvitableDto> notInvitedUsers = new List<InvitableDto>();
             foreach (var user in _db.Users)
             {
                 bool invited = false;
@@ -92,7 +92,7 @@ namespace BaBookStudentai.API
                 }
                 if (!invited)
                 {
-                    var usr = new UserDto
+                    var usr = new InvitableDto
                     {
                         Name = user.UserName,
                         UserId = user.Id

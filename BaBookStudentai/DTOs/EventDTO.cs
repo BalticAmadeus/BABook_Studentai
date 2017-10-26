@@ -25,6 +25,13 @@ namespace BaBookStudentai.DTOs
             var list = new List<EventDto>();
             foreach (var @event in events)
             {
+                int status = 3;
+                if (eventUsers.SingleOrDefault((x) => ((x.UserId == userID) && (x.EventId == @event.EventId))) != null)
+                {
+                    status = (int) eventUsers
+                        .SingleOrDefault((x) => ((x.UserId == userID) && (x.EventId == @event.EventId))).Status;
+                }
+
                 var eventDto = new EventDto
                 {
                     EventId = @event.EventId,
@@ -34,7 +41,8 @@ namespace BaBookStudentai.DTOs
                     Title = @event.Title,
                     Comment = @event.Comment,
                     Location = @event.Location,
-                    Status = (int)eventUsers.SingleOrDefault((x) => ((x.UserId == userID) && (x.EventId == @event.EventId))).Status
+
+                    Status = status
                 };
                 list.Add(eventDto);
             }

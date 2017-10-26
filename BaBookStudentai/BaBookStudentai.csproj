@@ -253,11 +253,13 @@
     <Compile Include="Common\MessageDetail.cs" />
     <Compile Include="Common\UserDetail.cs" />
     <Compile Include="DTOs\AddEventDto.cs" />
+    <Compile Include="DTOs\CommentDto.cs" />
     <Compile Include="DTOs\EventCommentDto.cs" />
     <Compile Include="DTOs\EventDto.cs" />
     <Compile Include="DTOs\EventParticipantDto.cs" />
     <Compile Include="DTOs\EventUserDto.cs" />
     <Compile Include="DTOs\GroupDto.cs" />
+    <Compile Include="DTOs\InvitableDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="DTOs\UserEventDto.cs" />
     <Compile Include="Entities\Event.cs" />

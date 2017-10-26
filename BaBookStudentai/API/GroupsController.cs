@@ -24,6 +24,7 @@ namespace BaBookStudentai.API
         [Route("api/groups")]
         public IHttpActionResult Get()
         {
+            
             var model = GroupDto.Convert(groupsRepository.Get());
 
             return Ok(model);

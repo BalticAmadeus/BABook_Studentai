@@ -11,7 +11,7 @@ using Microsoft.Security.Application;
 
 namespace BaBookStudentai.API
 {
-    [AllowAnonymous]
+    [Authorize]
     [EnableCors("*", "*", "*")]
     public class EventsController : ApiController
     {
@@ -43,12 +43,34 @@ namespace BaBookStudentai.API
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
-             var events = eventsRepository.GetAllEvents();
-             var groups = eventsRepository.GetAllGroups();
-             var users = eventsRepository.GetUsers();
-             var eventUsers = eventsRepository.GetEventUsers();
-             var model = EventDto.Convert(events, groups, eventUsers, users);
-             return Ok(model);
+            var events = eventsRepository.GetAllEvents();
+            var groups = eventsRepository.GetAllGroups();
+            var users = eventsRepository.GetUsers();
+            var eventUsers = eventsRepository.GetEventUsers();
+
+            var model = EventDto.Convert(events, groups, eventUsers, users);
+
+            return Ok(model);
+            //var eventsList = new List<EventDto>();
+            //var events = _db.Event.ToList();
+
+            //foreach (var @event in events)
+            //{
+            //    var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            //    var model = new EventDto
+            //    {
+            //        Comment = @event.Comment,
+            //        CreatorName = _db.Users.SingleOrDefault(x => x.Id == @event.CreatorId).Nickname,
+            //        Date = @event.Date,
+            //        EventId = @event.EventId,
+            //        GroupName = _db.Group.SingleOrDefault(x => x.GroupId == @event.GroupId).Name,
+            //        Location = @event.Location,
+            //        Status = (int)_db.EventUser.SingleOrDefault(x => x.UserId == userId).Status,
+            //        Title = @event.Title
+            //    };
+            //    eventsList.Add(model);
+            //}
+            //return Ok(eventsList);
         }
 
 

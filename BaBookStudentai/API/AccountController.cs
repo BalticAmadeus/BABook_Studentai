@@ -34,7 +34,7 @@ namespace BaBookStudentai.API
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var usr = new UserDto
             {
-                UserId = userId,
+                Id = userId,
                 Name = GetById(userId).UserName
             };
             return Ok(usr);

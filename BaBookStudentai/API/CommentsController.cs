@@ -23,15 +23,15 @@ namespace BaBookStudentai.API
         public IHttpActionResult Get([FromUri]int eventId)
         {
             var commentators = _db.Event.SingleOrDefault(x => x.EventId == eventId)?.EventComments;
-            var comments = new List<EventCommentDto>();
+            var comments = new List<CommentDto>();
 
             foreach (var commentator in commentators)
             {
 
-                var comment = new EventCommentDto
+                var comment = new CommentDto
                 {
                     Comment = commentator.UserComment,
-                    UserId = commentator.UserId
+                    Name = _db.Users.FirstOrDefault(x => x.Id == commentator.UserId).Nickname
 
                 };
                 comment.Comment = Sanitizer.GetSafeHtmlFragment(comment.Comment);

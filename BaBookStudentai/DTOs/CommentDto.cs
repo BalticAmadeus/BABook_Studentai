@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BaBookStudentai.DTOs
 {
-    public class UserDto
+    public class CommentDto
     {
-        public string Id { get; set; }
         public string Name { get; set; }
+        public string Comment { get; set; }
     }
 }
